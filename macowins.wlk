@@ -4,14 +4,18 @@ object macowins {
 	var ventas = []
 
 	method determinarGanancias(dia) {
-		// Implementación
-		// ...
+		// Implementar control de día
 		const ventasDelDia = ventas.filter{ venta => venta.fechaVenta() == dia }
-		return ventasDelDia.sum()
+		return ventasDelDia.sum{ venta => venta.consultarVenta() }
 	}
-    method calcularPrecioPrenda(prenda){
-        prenda.calcularPrecio()
-    }
+
+	method cobrarVenta(venta) {
+		ventas.add(venta)
+	}
+
+	method calcularPrecioPrenda(prenda) {
+		prenda.calcularPrecio()
+	}
 
 }
 
@@ -19,9 +23,15 @@ class Venta {
 
 	var prendasVendidas = []
 //date property fechaVenta
-	var metodoDePago
+	const metodoDePago
 
-	method cobrarse(precio) = metodoDePago.cobrarse(precio, prendasVendidas)
+	method consultarVenta() {
+		metodoDePago.consultarVenta()
+	}
+
+	method cobrarse() {
+		macowins.cobrarVenta(self)
+	}
 
 	method cantidadVendidas() = prendasVendidas.size()
 
@@ -29,8 +39,8 @@ class Venta {
 
 class MetodoDePago {
 
-	method cobrarse(precio, prendasVendidas) {
-		return prendasVendidas.sum()
+	method consultarVenta(prendasVendidas) {
+		return prendasVendidas.sum{ prendaVendida => prendaVendida.calcularPrecio() }
 	}
 
 }
@@ -44,8 +54,8 @@ class Tarjeta inherits MetodoDePago {
 		return cuotas * coeficienteFijo + prendasVendidas * 0.01
 	}
 
-	override method cobrarse(precio, prendasVendidas) {
-		return super(precio,prendasVendidas) + self.aplicarRecargo(prendasVendidas)
+	override method consultarVenta(prendasVendidas) {
+		return super(prendasVendidas) + self.aplicarRecargo(prendasVendidas)
 	}
 
 }
@@ -57,12 +67,14 @@ class Efectivo inherits MetodoDePago {
 class Prenda {
 
 	const precioBase
-	var property tipoDePrenda
+	const tipoDePrenda
 	var property estadoPrenda
 
 	method calcularPrecio() {
 		return estadoPrenda.calcularPrecio(precioBase)
 	}
+
+	method tipoDePrenda() = tipoDePrenda
 
 }
 
