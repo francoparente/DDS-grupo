@@ -55,7 +55,7 @@ class Tarjeta inherits MetodoDePago {
 
 class Efectivo inherits MetodoDePago {
 
-	method aplicarRecargo(){} // EL EFECTIVO MANTIENE EL MISMO PRECIO
+	method aplicarRecargo(preciosPrendasVendidas){} // EL EFECTIVO MANTIENE EL MISMO PRECIO
 }
 
 class Prenda {
