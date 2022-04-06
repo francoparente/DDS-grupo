@@ -9,6 +9,9 @@ object macowins {
 		const ventasDelDia = ventas.filter{ venta => venta.fechaVenta() == dia }
 		return ventasDelDia.sum()
 	}
+    method calcularPrecioPrenda(prenda){
+        prenda.calcularPrecio()
+    }
 
 }
 
