@@ -6,7 +6,7 @@ object macowins {
 	method determinarGanancias(dia) {
 		// Implementar control de día
 		const ventasDelDia = ventas.filter{ venta => venta.fechaVenta() == dia }
-		return ventasDelDia.sum{ venta => venta.consultarVenta() }
+		return ventasDelDia.sum{ venta => venta.precioFinalDeLaVenta() }
 	}
 
 	method cobrarVenta(venta) {
@@ -21,13 +21,13 @@ object macowins {
 
 class Venta {
 
-	var prendasVendidas = []
+	const prendasVendidas = []
 //date property fechaVenta
 	const metodoDePago
 
-	method consultarVenta() {
-		metodoDePago.consultarVenta()
-	}
+	method consultarPrecioDePrendas() = prendasVendidas.sum{ prendaVendida => prendaVendida.calcularPrecio() }
+	
+	method precioFinalDeLaVenta() = self.consultarPrecioDePrendas() + metodoDePago.aplicarRecargo(self.consultarPrecioDePrendas())
 
 	method cobrarse() {
 		macowins.cobrarVenta(self)
@@ -39,9 +39,7 @@ class Venta {
 
 class MetodoDePago {
 
-	method consultarVenta(prendasVendidas) {
-		return prendasVendidas.sum{ prendaVendida => prendaVendida.calcularPrecio() }
-	}
+	method aplicarRecargo(){} // Clase abstracta que cada metodo de pago debe tener
 
 }
 
@@ -53,15 +51,11 @@ class Tarjeta inherits MetodoDePago {
 	method aplicarRecargo(preciosPrendasVendidas) {
 		return cuotas * coeficienteFijo + preciosPrendasVendidas * 0.01
 	}
-
-	override method consultarVenta(prendasVendidas) {
-		return super(prendasVendidas) + self.aplicarRecargo(super(prendasVendidas))
-	}
-
 }
 
 class Efectivo inherits MetodoDePago {
 
+	method aplicarRecargo(){} // EL EFECTIVO MANTIENE EL MISMO PRECIO
 }
 
 class Prenda {
