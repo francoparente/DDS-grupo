@@ -50,12 +50,12 @@ class Tarjeta inherits MetodoDePago {
 	var property cuotas
 	const coeficienteFijo
 
-	method aplicarRecargo(prendasVendidas) {
-		return cuotas * coeficienteFijo + prendasVendidas * 0.01
+	method aplicarRecargo(preciosPrendasVendidas) {
+		return cuotas * coeficienteFijo + preciosPrendasVendidas * 0.01
 	}
 
 	override method consultarVenta(prendasVendidas) {
-		return super(prendasVendidas) + self.aplicarRecargo(prendasVendidas)
+		return super(prendasVendidas) + self.aplicarRecargo(super(prendasVendidas))
 	}
 
 }
