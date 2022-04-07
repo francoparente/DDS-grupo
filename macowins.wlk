@@ -4,7 +4,7 @@ object macowins {
 	var ventas = []
 
 	method determinarGanancias(dia) {
-		// Implementar control de día
+		// (control del día) 
 		const ventasDelDia = ventas.filter{ venta => venta.fechaVenta() == dia }
 		return ventasDelDia.sum{ venta => venta.precioFinalDeLaVenta() }
 	}
