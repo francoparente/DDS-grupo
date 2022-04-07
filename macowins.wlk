@@ -29,7 +29,7 @@ class Venta {
 }
 
 class EstadoClase{
-	method calcularPrecio(precioBase);
+	method calcularPrecio(precioBase);    // NO HACE FALTA CLASE ABSTRACTA, SE PUEDE UTILIZAR POLIMORFISMO
 }
 
 object nueva {
@@ -59,7 +59,7 @@ object liquidacion {
 
 class MetodoDePago {
 
-	method aplicarRecargo(){}
+	method aplicarRecargo(){}	// NO HACE FALTA CLASE ABSTRACTA, SE PUEDE UTILIZAR POLIMORFISMO CON LA INTERFAZ
 
 }
 
