@@ -1,45 +1,65 @@
 object macowins {
 
-	var prendas = []
-	var ventas = []
+	var ventas = [];
 
-	method determinarGanancias(dia) {
-		// (control del día) 
-		const ventasDelDia = ventas.filter{ venta => venta.fechaVenta() == dia }
-		return ventasDelDia.sum{ venta => venta.precioFinalDeLaVenta() }
+	method determinarGananciasDeUnDia(unDia) {
+		const ventasDelDia = ventas.filter{ venta => fueVendidoElDia(venta,unDia)};
+		return ventasDelDia.sum{ venta => venta.precioFinalDeLaVenta()};
 	}
 
-	method cobrarVenta(venta) {
-		ventas.add(venta)
+	method registrarVenta(unaVenta) {
+		ventas.add(unaVenta);
 	}
-
-	method calcularPrecioPrenda(prenda) {
-		prenda.calcularPrecio()
-	}
-
 }
 
 class Venta {
 
-	const prendasVendidas = []
-//date property fechaVenta
-	const metodoDePago
+	const prendasVendidas = [unasPrendas];
+	const fechaVenta = new Date();
+	const metodoDePago = unMetodo;
 
-	method consultarPrecioDePrendas() = prendasVendidas.sum{ prendaVendida => prendaVendida.calcularPrecio() }
+	method consultarPrecioDePrendas() { 
+		return prendasVendidas.sum{ prendaVendida => prendaVendida.calcularPrecio()}
+}
 	
 	method precioFinalDeLaVenta() = self.consultarPrecioDePrendas() + metodoDePago.aplicarRecargo(self.consultarPrecioDePrendas())
 
-	method cobrarse() {
-		macowins.cobrarVenta(self)
+	method cantidadVendidas() = rendasVendidas.size()
+
+}
+
+class EstadoClase{
+	method calcularPrecio(precioBase);
+}
+
+object nueva {
+
+	method calcularPrecio(precioBase) {
+		return precioBase;
 	}
 
-	method cantidadVendidas() = prendasVendidas.size()
+}
 
+class Promocion inherits EstadoPrenda{
+
+	const valorFijo;
+
+	method calcularPrecio(precioBase) {
+		return precioBase - valorFijo;
+	}
+
+}
+
+object liquidacion {
+
+	method calcularPrecio(precioBase) {
+		return precioBase * 0.5;
+	}
 }
 
 class MetodoDePago {
 
-	method aplicarRecargo(){} // Clase abstracta que cada metodo de pago debe tener
+	method aplicarRecargo(){}
 
 }
 
@@ -53,48 +73,23 @@ class Tarjeta inherits MetodoDePago {
 	}
 }
 
-class Efectivo inherits MetodoDePago {
+object efectivo {
 
-	method aplicarRecargo(preciosPrendasVendidas){} // EL EFECTIVO MANTIENE EL MISMO PRECIO
+		method aplicarRecargo(preciosPrendasVendidas){ 
+			return preciosPrendasVendidas;
+	}
 }
 
 class Prenda {
 
 	const precioBase
 	const tipoDePrenda
-	var property estadoPrenda
+	var estadoPrenda
 
 	method calcularPrecio() {
 		return estadoPrenda.calcularPrecio(precioBase)
 	}
 
-	method tipoDePrenda() = tipoDePrenda
+	method tipoDePrenda() = tipoDePrenda;
 
 }
-
-object nueva {
-
-	method calcularPrecio(precioBase) {
-		return precioBase
-	}
-
-}
-
-class Promocion {
-
-	const valorFijo
-
-	method calcularPrecio(precioBase) {
-		return precioBase - valorFijo
-	}
-
-}
-
-object liquidacion {
-
-	method calcularPrecio(precioBase) {
-		return precioBase * 0.5
-	}
-
-}
-
