@@ -6,7 +6,7 @@
 - Blanco Lucas
 - Candia Thomas
 - Maqueda Pablo
-- Parente Daniel
+- Parente Franco
 
 ## Fecha Entrega: 07/04/2022
 
