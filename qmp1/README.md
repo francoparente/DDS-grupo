@@ -12,7 +12,7 @@ Comenzaremos definiendo que un atuendo es una combinación de prendas que tiene 
 
 Como primer paso para generar los atuendos, les usuaries de QuéMePongo identificaron el siguiente requerimiento como principal:
 
-_**Como usuarie de QuéMePongo, quiero poder cargar prendas válidas para generar atuendos con ellas.**_
+> **_Como usuarie de QuéMePongo, quiero poder cargar prendas válidas para generar atuendos con ellas._**
 
 Y luego, al consultar más sobre este requerimiento general, logramos descomponerlo con mayor detalle en los siguientes:
 
