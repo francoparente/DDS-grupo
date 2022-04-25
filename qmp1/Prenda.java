@@ -77,3 +77,51 @@ Accesorio extends Categoria{
 Calzado extends Categoria{
     var listaPrendas = {}
 }
+            return listaAc.incluye(unTipoDePrenda);
+
+          default: lanzarError("Categoria invalida");
+        }
+    }
+}
+
+
+
+// SOLUCION ALTERNATIVA USANDO COMPOSICION CON CLASES SIN UTILIZAR SWITCH
+
+class prenda{
+    var unTipoDePrenda = "zapatos"  // Ejemplo
+    var categoria = new Inferior(listaPrendas = {"zapatos"})
+    method verificar(){
+        if(categoria.incluyeA(unTipoDePrenda)){
+            // Es una prenda valida
+        }
+    
+}
+
+Class abstract categoria{
+    var listaPrendas
+    method incluyeA(tipoPrenda){
+        listaPrendas.contains(tipoPrenda)
+        }
+    }
+
+//listaPrendas.incluye(unTipoDePrenda)
+
+Superior extends Categoria
+{
+    var listaPrendas = {}
+
+}
+
+Inferior extends Categoria{
+    var listaPrendas = {"zapatillas"}
+
+}
+
+Accesorio extends Categoria{
+    var listaPrendas = {}
+}
+
+Calzado extends Categoria{
+    var listaPrendas = {}
+}

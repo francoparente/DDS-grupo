@@ -11,4 +11,6 @@ class Usuario {
         //lista de atuendos
         QMP.atuendosDisponibles(guardarropa).filter(atuendo -> this.meSirve(atuendo)).filter(atuendo -> this.meGusta(atuendo));
     }
+
+    
 }
