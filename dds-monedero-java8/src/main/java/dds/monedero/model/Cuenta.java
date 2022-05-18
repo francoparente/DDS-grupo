@@ -22,7 +22,7 @@ public class Cuenta {
 
   //No se verifica que pases un monto negativo o null (AGREGAR verificacion de null)
   public Cuenta(double montoInicial) {
-    montoNegativoException(double monto);
+    montoNegativoComprobacion(montoInicial);
     saldo = montoInicial;
 
   }
@@ -32,7 +32,7 @@ public class Cuenta {
   }
 
   public void poner(double cuanto) {
-    montoNegativoException(double cuanto);
+    montoNegativoComprobacion(cuanto);
     comprobarDepositosDiarios(3);
     new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
   }
@@ -80,7 +80,7 @@ public class Cuenta {
 
   private void montoNegativoComprobacion(double monto) {
     if(monto <= 0)
-      MontoNegativoException(monto + ": el monto a ingresar debe ser un valor positivo");
+      throw new MontoNegativoException(monto + ": el monto a ingresar debe ser un valor positivo");
   }
 
   private void saldoMenorComprobacion(double monto) {
@@ -89,7 +89,7 @@ public class Cuenta {
     }
   }
 
-  private double calcularLimiteActual(limiteDiario){
+  private double calcularLimiteActual(double limiteDiario){
     double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
     return limiteDiario - montoExtraidoHoy;
   }
@@ -105,7 +105,7 @@ public class Cuenta {
   private void comprobarDepositosDiarios(int limiteDiario) {
     if (getMovimientos()
         .stream()
-        .filter(movimiento -> movimiento.fueDepositado(LocalDate.Now()))
+        .filter(movimiento -> movimiento.fueDepositado(LocalDate.now()))
         .count() >= limiteDiario) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + limiteDiario + " depositos diarios");
     }

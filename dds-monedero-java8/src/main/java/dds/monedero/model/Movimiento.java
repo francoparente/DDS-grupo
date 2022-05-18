@@ -53,5 +53,10 @@ public class Movimiento {
     return cuenta.getSaldo() + getMonto() * signoSegunEstado();
   }
 
-  private int signoSegunEstado() = if(esDeposito) 1 else -1;
+  private int signoSegunEstado() {
+    if(esDeposito)
+      return 1;
+    else
+      return -1;
+  }
 }
