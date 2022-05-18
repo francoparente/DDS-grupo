@@ -36,21 +36,17 @@ public class Movimiento {
     return this.fecha.equals(fecha);
   }
 
-  //Si hubieran más tipos de movimientos convendría o bien un enum o una clase de tipos de movimientos
-  //Utilizar solamente un método
   public boolean isDeposito() {
     return esDeposito;
   }
 
-  //Según Lucas lo sacamos
   public boolean isExtraccion() {
     return !esDeposito;
   }
 
   public void agregateA(Cuenta cuenta) {
     cuenta.setSaldo(calcularValor(cuenta));
-    //Le tendría que pasar este movimiento, y no crear un duplicado
-    cuenta.agregarMovimiento(fecha, monto, esDeposito);
+    cuenta.agregarMovimiento(this);
   }
 
   public double calcularValor(Cuenta cuenta) {

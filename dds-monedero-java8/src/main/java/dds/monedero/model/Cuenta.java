@@ -33,38 +33,30 @@ public class Cuenta {
 
   public void poner(double cuanto) {
     montoNegativoException(double cuanto);
-
-    //No se verifica la fecha, (no pasa la fecha como parametro)
-    //No se utiliza los métodos propias de las clases, en este caso movimiento.fueDepositado
-
     comprobarDepositosDiarios(3);
-
-    //Ya tengo una función agregar movimiento que es propia de esta clase
-    //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
-    //Un movimiento no conoce a una cuenta, por lo que tranquilamente podriamos usar solamente
-    //Agregarmovimiento de esta clase, hay un Middle man caso contrario.
-
     new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
   }
 
   public void sacar(double cuanto) {
-
     montoNegativoComprobacion(cuanto);
     saldoMenorComprobacion(cuanto);
     comprobarMontoARetirarEnDia(cuanto,1000);
-
-    //Ya tengo una función agregar movimiento que es propia de esta clase
-    //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
-    //Un movimiento no conoce a una cuenta, por lo que tranquilamente podriamos usar solamente
-    //Agregarmovimiento de esta clase, hay un Middle man caso contrario.
-
-    //Tener en cuenta usar dos clases en vez de booleanos
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
   }
+/*
+  private efectuarRetiro(double cuanto){
+    agregarMovimiento(new Movimiento(LocalDate.now(), cuanto, false));
+    saldo = getSaldo() - cuanto;
+  }
+    private efectuarDeposito(double cuanto){
+    agregarMovimiento(new Movimiento(LocalDate.now(), cuanto, false));
+    saldo = getSaldo() - cuanto;
+  }
+*/
 
-  public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
-    Movimiento movimiento = new Movimiento(fecha, cuanto, esDeposito);
-    movimientos.add(movimiento);
+
+  public void agregarMovimiento(Movimiento unMovimiento) {
+    movimientos.add(unMovimiento);
   }
 
   public double getMontoExtraidoA(LocalDate fecha) {
@@ -104,7 +96,7 @@ public class Cuenta {
 
   private void comprobarMontoARetirarEnDia(double cuanto, double limiteDiario) {
     double limiteActual = calcularLimiteActual(limiteDiario);
-    if (cuanto > limiteActual) {
+    if(cuanto > limiteActual) {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + limiteDiario
           + " diarios, límite: " + limiteActual);
     }
@@ -118,6 +110,4 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los " + limiteDiario + " depositos diarios");
     }
   }
-
-
 }
