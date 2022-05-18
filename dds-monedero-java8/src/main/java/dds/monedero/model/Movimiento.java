@@ -57,10 +57,10 @@ public class Movimiento {
 
   // Codigo Duplicado
   public double calcularValor(Cuenta cuenta) {
-    if (esDeposito) {
-      return cuenta.getSaldo() + getMonto();
-    } else {
-      return cuenta.getSaldo() - getMonto();
-    }
+    return cuenta.getSaldo() + getMonto() * signoSegunEstado();
+
   }
+  private int signoSegunEstado() = if(esDeposito) 1 else -1;
+
+
 }
