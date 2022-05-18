@@ -16,7 +16,6 @@ public class Cuenta {
   private List<Movimiento> movimientos = new ArrayList<>();
 
   // Inicializa nuevamente salgo a 0 cuando crea un Objeto Cuenta
-  // Esta de mas en este caso
   public Cuenta() {
     saldo = 0;
   }
