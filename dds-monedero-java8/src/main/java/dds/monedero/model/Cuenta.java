@@ -11,29 +11,33 @@ import java.util.List;
 
 public class Cuenta {
 
+  //Doble inicialización innecesaria de saldo
   private double saldo = 0;
   private List<Movimiento> movimientos = new ArrayList<>();
 
+  // Inicializa nuevamente salgo a 0 cuando crea un Objeto Cuenta
+  // Esta de mas en este caso
   public Cuenta() {
     saldo = 0;
   }
 
+  //No se verifica que pases un monto negativo o null (AGREGAR verificacion de null)
   public Cuenta(double montoInicial) {
     saldo = montoInicial;
   }
-  //No se verifica que pases un monto negativo o null
 
   public void setMovimientos(List<Movimiento> movimientos) {
     this.movimientos = movimientos;
   }
-  //No se verifica que pases null
+
   public void poner(double cuanto) {
     if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
-    //No se verifica la fecha
+
+    //No se verifica la fecha, (no pasa la fecha como parametro)
     //No se utiliza los métodos propias de las clases, en este caso movimiento.fueDepositado
-    if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3) {
+    if (getMovimientos().stream().filter(movimiento -> movimiento. (pasar fecha como parametro)).count() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
@@ -41,6 +45,7 @@ public class Cuenta {
     //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
     //Un movimiento no conoce a una cuenta, por lo que tranquilamente podriamos usar solamente
     //Agregarmovimiento de esta clase, hay un Middle man caso contrario.
+
     new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
   }
 
@@ -63,6 +68,8 @@ public class Cuenta {
     //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
     //Un movimiento no conoce a una cuenta, por lo que tranquilamente podriamos usar solamente
     //Agregarmovimiento de esta clase, hay un Middle man caso contrario.
+
+    //Tener en cuenta usar dos clases en vez de booleanos
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
   }
 
@@ -90,5 +97,4 @@ public class Cuenta {
   public void setSaldo(double saldo) {
     this.saldo = saldo;
   }
-
 }

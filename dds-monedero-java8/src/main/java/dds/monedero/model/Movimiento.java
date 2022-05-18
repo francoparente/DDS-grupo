@@ -38,11 +38,13 @@ public class Movimiento {
   public boolean esDeLaFecha(LocalDate fecha) {
     return this.fecha.equals(fecha);
   }
+
   //Si hubieran más tipos de movimientos convendría o bien un enum o una clase de tipos de movimientos
+  //Utilizar solamente un método
   public boolean isDeposito() {
     return esDeposito;
   }
-
+  //Según lucas lo sacamos
   public boolean isExtraccion() {
     return !esDeposito;
   }
