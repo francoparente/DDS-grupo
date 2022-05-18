@@ -1,0 +1,6 @@
+dds/monedero/model/Cuenta.class
+dds/monedero/exceptions/MaximoExtraccionDiarioException.class
+dds/monedero/exceptions/MontoNegativoException.class
+dds/monedero/exceptions/MaximaCantidadDepositosException.class
+dds/monedero/exceptions/SaldoMenorException.class
+dds/monedero/model/Movimiento.class
