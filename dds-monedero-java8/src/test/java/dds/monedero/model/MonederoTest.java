@@ -20,6 +20,7 @@ public class MonederoTest {
   @Test
   void Poner() {
     cuenta.poner(1500);
+    assertEqual(cuenta.getSaldo(), 1500);
   }
 
   @Test
@@ -32,6 +33,7 @@ public class MonederoTest {
     cuenta.poner(1500);
     cuenta.poner(456);
     cuenta.poner(1900);
+    assertEqual(cuenta.getSaldo(), 1500+456+1900);
   }
 
   @Test
