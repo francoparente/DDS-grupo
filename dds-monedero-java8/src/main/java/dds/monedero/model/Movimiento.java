@@ -10,7 +10,6 @@ public class Movimiento {
   private double monto;
   private boolean esDeposito;
 
-  //NO se verifica que los valores sean no-nulos
   public Movimiento(LocalDate fecha, double monto, boolean esDeposito) {
     this.fecha = fecha;
     this.monto = monto;
@@ -25,8 +24,6 @@ public class Movimiento {
     return fecha;
   }
 
-  //Como solo son dos movimientos no hay mucho problema en que existan estos métodos, pero si quisiéramos añadir más
-  //(extensibilidad), convendría considerar otro modelo.
   public boolean fueDepositado(LocalDate fecha) {
     return isDeposito() && esDeLaFecha(fecha);
   }
@@ -44,6 +41,7 @@ public class Movimiento {
   public boolean isDeposito() {
     return esDeposito;
   }
+
   //Según Lucas lo sacamos
   public boolean isExtraccion() {
     return !esDeposito;
@@ -55,12 +53,9 @@ public class Movimiento {
     cuenta.agregarMovimiento(fecha, monto, esDeposito);
   }
 
-  // Codigo Duplicado
   public double calcularValor(Cuenta cuenta) {
     return cuenta.getSaldo() + getMonto() * signoSegunEstado();
-
   }
+
   private int signoSegunEstado() = if(esDeposito) 1 else -1;
-
-
 }
