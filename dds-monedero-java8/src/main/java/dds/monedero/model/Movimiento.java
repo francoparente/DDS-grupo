@@ -44,7 +44,7 @@ public class Movimiento {
   public boolean isDeposito() {
     return esDeposito;
   }
-  //Según lucas lo sacamos
+  //Según Lucas lo sacamos
   public boolean isExtraccion() {
     return !esDeposito;
   }
@@ -55,6 +55,7 @@ public class Movimiento {
     cuenta.agregarMovimiento(fecha, monto, esDeposito);
   }
 
+  // Codigo Duplicado
   public double calcularValor(Cuenta cuenta) {
     if (esDeposito) {
       return cuenta.getSaldo() + getMonto();

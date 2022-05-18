@@ -12,7 +12,7 @@ import java.util.List;
 public class Cuenta {
 
   //Doble inicialización innecesaria de saldo
-  private double saldo = 0;
+  private double saldo;
   private List<Movimiento> movimientos = new ArrayList<>();
 
   // Inicializa nuevamente salgo a 0 cuando crea un Objeto Cuenta
@@ -22,7 +22,9 @@ public class Cuenta {
 
   //No se verifica que pases un monto negativo o null (AGREGAR verificacion de null)
   public Cuenta(double montoInicial) {
+    montoNegativoException(double monto);
     saldo = montoInicial;
+
   }
 
   public void setMovimientos(List<Movimiento> movimientos) {
@@ -30,15 +32,12 @@ public class Cuenta {
   }
 
   public void poner(double cuanto) {
-    if (cuanto <= 0) {
-      throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
-    }
+    montoNegativoException(double cuanto);
 
     //No se verifica la fecha, (no pasa la fecha como parametro)
     //No se utiliza los métodos propias de las clases, en este caso movimiento.fueDepositado
-    if (getMovimientos().stream().filter(movimiento -> movimiento. (pasar fecha como parametro)).count() >= 3) {
-      throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
-    }
+
+    comprobarDepositosDiarios();
 
     //Ya tengo una función agregar movimiento que es propia de esta clase
     //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
@@ -49,20 +48,11 @@ public class Cuenta {
   }
 
   public void sacar(double cuanto) {
-    //Convendría tener métodos auxiliares para las distintas comprobaciones
-    if (cuanto <= 0) {
-      throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
-    }
-    if (getSaldo() - cuanto < 0) {
-      throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
-    }
-    //Podría tener una función que calcule el limite actual
-    double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
-    double limite = 1000 - montoExtraidoHoy;
-    if (cuanto > limite) {
-      throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
-          + " diarios, límite: " + limite);
-    }
+
+    montoNegativoComprobacion(cuanto);
+    saldoMenorComprobacion(cuanto);
+    comprobarMontoARetirarEnDia(cuanto);
+
     //Ya tengo una función agregar movimiento que es propia de esta clase
     //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
     //Un movimiento no conoce a una cuenta, por lo que tranquilamente podriamos usar solamente
@@ -96,4 +86,37 @@ public class Cuenta {
   public void setSaldo(double saldo) {
     this.saldo = saldo;
   }
+
+  private void montoNegativoComprobacion(double monto) {
+    if(monto <= 0) {
+      MontoNegativoException(monto + ": el monto a ingresar debe ser un valor positivo");
+    }
+  }
+
+  private void saldoMenorComprobacion(double monto) {
+    if (getSaldo() - monto < 0) {
+      throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
+    }
+  }
+
+  private double calcularLimiteActual(){
+    double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
+    return 1000 - montoExtraidoHoy;
+  }
+
+  private void comprobarMontoARetirarEnDia(double cuanto, double limite) {
+    double limite = calcularLimiteActual();
+    if (cuanto > limite) {
+      throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
+          + " diarios, límite: " + limite);
+    }
+  }
+
+  private void comprobarDepositosDiarios() {
+    if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito(LocalDate.Now())).count() >= 3) {
+      throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
+    }
+  }
+
+
 }
