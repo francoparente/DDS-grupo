@@ -37,7 +37,7 @@ public class Cuenta {
     //No se verifica la fecha, (no pasa la fecha como parametro)
     //No se utiliza los métodos propias de las clases, en este caso movimiento.fueDepositado
 
-    comprobarDepositosDiarios();
+    comprobarDepositosDiarios(3);
 
     //Ya tengo una función agregar movimiento que es propia de esta clase
     //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
@@ -51,7 +51,7 @@ public class Cuenta {
 
     montoNegativoComprobacion(cuanto);
     saldoMenorComprobacion(cuanto);
-    comprobarMontoARetirarEnDia(cuanto);
+    comprobarMontoARetirarEnDia(cuanto,1000);
 
     //Ya tengo una función agregar movimiento que es propia de esta clase
     //Además no tendría por qué pedirle a un movimiento que se agregue a esta cuenta
@@ -68,7 +68,6 @@ public class Cuenta {
   }
 
   public double getMontoExtraidoA(LocalDate fecha) {
-    //Deberia haber una delegación de responsabilidad
     return getMovimientos().stream()
         .filter(movimiento -> movimiento.fueExtraido(fecha))
         .mapToDouble(Movimiento::getMonto)
@@ -88,9 +87,8 @@ public class Cuenta {
   }
 
   private void montoNegativoComprobacion(double monto) {
-    if(monto <= 0) {
+    if(monto <= 0)
       MontoNegativoException(monto + ": el monto a ingresar debe ser un valor positivo");
-    }
   }
 
   private void saldoMenorComprobacion(double monto) {
@@ -99,22 +97,25 @@ public class Cuenta {
     }
   }
 
-  private double calcularLimiteActual(){
+  private double calcularLimiteActual(limiteDiario){
     double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
-    return 1000 - montoExtraidoHoy;
+    return limiteDiario - montoExtraidoHoy;
   }
 
-  private void comprobarMontoARetirarEnDia(double cuanto, double limite) {
-    double limite = calcularLimiteActual();
-    if (cuanto > limite) {
-      throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
-          + " diarios, límite: " + limite);
+  private void comprobarMontoARetirarEnDia(double cuanto, double limiteDiario) {
+    double limiteActual = calcularLimiteActual(limiteDiario);
+    if (cuanto > limiteActual) {
+      throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + limiteDiario
+          + " diarios, límite: " + limiteActual);
     }
   }
 
-  private void comprobarDepositosDiarios() {
-    if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito(LocalDate.Now())).count() >= 3) {
-      throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
+  private void comprobarDepositosDiarios(int limiteDiario) {
+    if (getMovimientos()
+        .stream()
+        .filter(movimiento -> movimiento.fueDepositado(LocalDate.Now()))
+        .count() >= limiteDiario) {
+      throw new MaximaCantidadDepositosException("Ya excedio los " + limiteDiario + " depositos diarios");
     }
   }
 
