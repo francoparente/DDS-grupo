@@ -41,10 +41,7 @@ public abstract class Movimiento {
   return !isDeposito();
 }
 
-  public void agregateA(Cuenta cuenta) {
-    cuenta.setSaldo(calcularValor(cuenta));
-    cuenta.agregarMovimiento(this);
-  }
+
 
 public double calcularValor(Cuenta cuenta){
 return cuenta.getSaldo() + getMontoOperacion();
