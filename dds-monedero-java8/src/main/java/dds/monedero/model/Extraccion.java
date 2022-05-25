@@ -13,4 +13,10 @@ return false;
 public boolean isDeposito(){
 return true;
 }
+
+@Override
+protected double getMontoOperacion(){
+    return getMonto() * -1;
+}
+
 }

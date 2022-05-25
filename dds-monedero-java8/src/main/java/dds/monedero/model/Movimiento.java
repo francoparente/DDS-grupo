@@ -43,14 +43,9 @@ public abstract class Movimiento {
     cuenta.agregarMovimiento(this);
   }
 
-  public double calcularValor(Cuenta cuenta) {
-    return cuenta.getSaldo() + getMonto() * signoSegunEstado();
-  }
+public double calcularValor(Cuenta cuenta){
+return cuenta.getSaldo() + getMontoOperacion();
+}
 
-  private int signoSegunEstado() {
-    if(esDeposito)
-      return 1;
-    else
-      return -1;
-  }
+protected abstract double getMontoOperacion();
 }
