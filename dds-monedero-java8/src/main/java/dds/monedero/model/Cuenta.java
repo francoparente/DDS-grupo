@@ -31,14 +31,14 @@ public class Cuenta {
   public void poner(double cuanto) {
     montoNegativoComprobacion(cuanto);
     comprobarDepositosDiarios(3);
-    new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
+    new Deposito(LocalDate.now(), cuanto).agregateA(this);
   }
 
   public void sacar(double cuanto) {
     montoNegativoComprobacion(cuanto);
     saldoMenorComprobacion(cuanto);
     comprobarMontoARetirarEnDia(cuanto,1000);
-    new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+    new Extraccion(LocalDate.now(), cuanto).agregateA(this);
   }
 
 
