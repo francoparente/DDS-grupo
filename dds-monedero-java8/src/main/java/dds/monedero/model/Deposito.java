@@ -9,10 +9,7 @@ public boolean isDeposito(){
 return true;
 }
 
-@Override
-public boolean isDeposito(){
-return false;
-}
+
 
 @Override
 protected double getMontoOperacion(){
