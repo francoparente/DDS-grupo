@@ -26,9 +26,7 @@ public abstract class Movimiento {
     return isDeposito() && esDeLaFecha(fecha);
   }
 
-  public boolean fueExtraido(LocalDate fecha) {
-    return isExtraccion() && esDeLaFecha(fecha);
-  }
+  public abstract boolean fueExtraido(LocalDate fecha);
 
   public boolean esDeLaFecha(LocalDate fecha) {
     return this.fecha.equals(fecha);

@@ -8,7 +8,9 @@ public class Extraccion extends Movimiento{
 public boolean isDeposito(){
 return false;
 }
-
+  public boolean fueExtraido(LocalDate fecha) {
+    return esDeLaFecha(fecha);
+  }
 
 @Override
 protected double getMontoOperacion(){

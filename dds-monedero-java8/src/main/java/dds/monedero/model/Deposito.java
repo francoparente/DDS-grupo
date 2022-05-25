@@ -8,7 +8,9 @@ public class Deposito extends Movimiento{
 public boolean isDeposito(){
 return true;
 }
-
+  public boolean fueExtraido(LocalDate fecha) {
+    return false
+  }
 
 
 @Override
