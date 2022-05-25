@@ -11,16 +11,13 @@ import java.util.List;
 
 public class Cuenta {
 
-  //Doble inicialización innecesaria de saldo
   private double saldo;
   private List<Movimiento> movimientos = new ArrayList<>();
 
-  // Inicializa nuevamente salgo a 0 cuando crea un Objeto Cuenta
   public Cuenta() {
     saldo = 0;
   }
 
-  //No se verifica que pases un monto negativo o null (AGREGAR verificacion de null)
   public Cuenta(double montoInicial) {
     montoNegativoComprobacion(montoInicial);
     saldo = montoInicial;
@@ -43,16 +40,7 @@ public class Cuenta {
     comprobarMontoARetirarEnDia(cuanto,1000);
     new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
   }
-/*
-  private efectuarRetiro(double cuanto){
-    agregarMovimiento(new Movimiento(LocalDate.now(), cuanto, false));
-    saldo = getSaldo() - cuanto;
-  }
-    private efectuarDeposito(double cuanto){
-    agregarMovimiento(new Movimiento(LocalDate.now(), cuanto, false));
-    saldo = getSaldo() - cuanto;
-  }
-*/
+
 
 
   public void agregarMovimiento(Movimiento unMovimiento) {
