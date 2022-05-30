@@ -1,0 +1,15 @@
+class SastreSanJuan implements Sastre{
+  method fabricarParteSuperior() {
+    borrador = new Borrador(CHOMBA);
+    borrador.especificarColor(new Color(....));
+    borrador.especificarMaterial(PIQUE);
+    return borrador.crearPrenda();
+  }
+              
+  method fabricarParteInferior() {
+    borrador = new Borrador(PANTALON);
+    borrador.especificarColor(new Color(....));
+    borrador.especificarMaterial(ACETATO);
+    return borrador.crearPrenda():
+  }                
+}
