@@ -15,15 +15,17 @@ public class Prenda {
   private EstadoPrenda estado;
   private int vecesUsada;
   private boolean estaSiendoLavada;
+  private int temperatura;
 
   public Prenda(TipoPrenda tipo, Categoria categoria, Tela tela, Color colorPrimario,
-      Color colorSecundario) {
+      Color colorSecundario, int temperatura) {
     this.tipo = tipo;
     this.categoria = categoria;
     this.tela = tela;
     this.colorPrimario = colorPrimario;
     this.colorSecundario = colorSecundario;
     this.estado = new Limpia();
+    this.temperatura = temperatura;
   }
 
   Categoria getCategoria() {

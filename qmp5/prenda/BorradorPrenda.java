@@ -8,7 +8,7 @@ import partes_prenda.TipoTrama;
 import partes_prenda.TipoPrenda;
 
 // BUILDER DE PRENDA
-public class Sastre {
+public class BorradorPrenda {
   private TipoPrenda tipo;
   private final Categoria categoria;
   private TipoTela tela;
@@ -16,7 +16,7 @@ public class Sastre {
   private Color colorPrimario;
   private Color colorSecundario;
 
-  Sastre(Categoria unaCategoria) {
+  BorradorPrenda(Categoria unaCategoria) {
     this.categoria = unaCategoria;
   }
 

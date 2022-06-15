@@ -1,15 +1,8 @@
-public class Clima implements WeatherAPI{
-    String ---> link API
-    API apiweather;
+public Clima{
+    int temperatura
+    String direccion
+    LocalDate horario
+
     
-    getclima() {
-        apiweather.getClima()
-        hora_pedida = algo;
-        //...
-    }
+
 }
-                                  
-                                        
-
-
-

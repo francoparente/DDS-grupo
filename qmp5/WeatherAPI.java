@@ -1,5 +1,0 @@
-interface WeatherAPI {
-
-    method getWeather();
-
-}

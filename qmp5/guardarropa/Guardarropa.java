@@ -1,19 +1,21 @@
 class Guardarropa {
     List<Prenda> prendas;
+    String criterio;
+    List<Propuesta> propuestas = new ArrayList();
+    List<Usuario> usuariosCompartidos = new ArrayList();
 
-    Guardarropa(List<Prenda> prendas) {
+    Guardarropa(List<Prenda> prendas, String criterio) {
         this.prendas = prendas;
+        this.criterio = criterio;
     }
 
 
     private Atuendo generarAtuendoAleatorio(Clima unClima) {
-        
-
         Prenda parteSuperior = obtenerPrendaAleatoria(SUPERIOR,Clima unClima);
         Prenda parteInferior = obtenerPrendaAleatoria(INFERIOR,Clima unClima);
         Prenda calzado = obtenerPrendaAleatoria(CALZADO,Clima unClima);
         Prenda accesorio = obtenerPrendaAleatoria(ACCESORIO,Clima unClima);
-    
+        
         prendaSuperior.usarseEnAtuendo();
         parteInferior.usarseEnAtuendo();
         calzado.usarseEnAtuendo();
@@ -48,7 +50,45 @@ class Guardarropa {
         return unasPrendas.filter(prenda -> prenda.esAdecuadaParaClimaActual(Clima unClima));
     }
 
+    method todasLasPosiblesCombinaciones(){
+        //retorna todas las posibles combinaciones de atuendos
+        //pending --> en proximas iteraciones cuando nos digan
+    }
+
+    void recibirPropuesta(Propuesta propuesta) {
+        propuestas.add(propuesta);
+    }
+    void agregarUsuarioCompartido(Usuario usuario) {
+        usuariosCompartidos.add(usuario);
+    }
+
+    void aceptarPropuesta(unaPropuesta) {
+	    unaPropuesta.efectuarCambios(this);
+        unaPropuesta.aceptar();
+    }
+
+    void rechazarPropuesta(unaPropuesta) {
+	    this.eliminarPropuesta(unaPropuesta);
+    }
+
+    void eliminarPropuesta(Propuesta unaPropuesta) {
+        propuestas.remove(propuestas.indexOf(unaPropuesta));
+    }
+
+    void deshacerTodasLasPropuestas() {
+        propuestas.filter(propuesta -> propuesta.fueAceptada()).map(propuesta -> propuesta.deshacerCambios(this));
+    }
+
     void agregarPrenda(Prenda prenda) {
         prendas.add(prenda);
     }
+
+    void eliminarPrenda(Prenda unaPrenda) {
+        prendas.remove(prendas.indexOf(unaPrenda));
+    }
+
+    List<Propuesta> getPropuestas() {
+        return propuestas;
+    }
+
 }
