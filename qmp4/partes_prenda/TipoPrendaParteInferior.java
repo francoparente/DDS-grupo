@@ -13,14 +13,14 @@ public enum TipoPrendaParteInferior implements TipoPrenda {
     return calido;
   }
 }
-
+/*
 prendasquesepuedanusaren(temperatura);
 
 frio(0K,4)
 templado(5,18)
 calido(19,28)
 caluroso(29,+infinito)
-
+*/
 public class TipoPrendaParteInferior {
 
   constructor("pantalon corto",temperatura);

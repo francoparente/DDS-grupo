@@ -8,12 +8,7 @@ public class Clima implements WeatherAPI{
         //...
     }
 }
-
-              interface WeatherAPI
-                       getClima()
-accuweather {           CLASE_API2      clase3
-  AccuWeatherAPI          API2             API3 
-}                                            
+                                  
                                         
 
 
