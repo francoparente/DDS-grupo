@@ -1,0 +1,18 @@
+//singleton
+class RepositorioAlertas{
+    List<Alerta> alertas;
+    ServicioMeteorologico proveedor;
+
+
+    void actualizar(){
+        alertas = this.proveedor().getAlertas(ciudad);
+        //o tambien
+        alertas = ServiceLocator.instance().get(ProveedorClima.class)
+    }
+    Alerta filtrarPorCiudad(ciudad){
+        return this.alertas.filter(alerta => alerta.ciudad() == ciudad)
+    }
+
+
+
+}
